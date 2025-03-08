@@ -40,7 +40,7 @@
    <div class="p-3">
       <h4 class="h4" data-toc-ignore style="display: flex;flex-direction: row;justify-content: space-between;">
          Your ID ({UserID})
-         <button class="btn">✖</button>
+         <button class="btn" on:click={()=>{drawerStore.close()}}>✖</button>
       </h4>
    </div>
    <div class="p-3">
