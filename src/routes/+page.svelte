@@ -15,6 +15,7 @@
 	let UserMessage = ""
 	let conn:any
 	let LogMessages:{type:string;message:string;timestamp:Date}[] = []
+	let NavchildRef: NavBar;
 	let videodata:HTMLVideoElement
 	const toastStore = getToastStore();
 	const shortdummyID = nanoid(4).toLowerCase() // Generate Random User ID
@@ -61,6 +62,7 @@
          }
 			else if(data == "SharedScreenzjhgdvzjvguyzgv"){
 				Window = "ShareScreen"
+				NavchildRef.closedrawer();
 			}
 			else{
 				LogMessages.push({type:"Receiver",message:data,timestamp:new Date()})
@@ -169,7 +171,7 @@
 </script>
 <div id="EntireScreen">
 	<div class="box">
-		<NavBar bind:Window={Window} bind:IsConnected={IsConnected} bind:UserID={UserID} bind:AnotherID={AnotherID}
+		<NavBar bind:this={NavchildRef} bind:Window={Window} bind:IsConnected={IsConnected} bind:UserID={UserID} bind:AnotherID={AnotherID}
 		on:ConnectwithUserFirst={ConnectwithUserFirst} on:LeaveConnection={LeaveConnection} on:ShareScreen={ShareScreen} on:fullscreenbtn={fullscreenbtn}/>
 	</div>
 	<div class="box" id="chatwindow">

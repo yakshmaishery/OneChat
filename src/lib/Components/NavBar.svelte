@@ -22,6 +22,9 @@
    };
    // drawerStore.open(drawerSettings);
    // drawerStore.open();
+   export function closedrawer(){
+      drawerStore.close()
+   }
 </script>
 
 <AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
