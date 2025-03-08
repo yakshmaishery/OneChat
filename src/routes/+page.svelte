@@ -166,6 +166,7 @@
 	function fullscreenbtn() {
 		if(videodata){
 			videodata.requestFullscreen()
+			NavchildRef.closedrawer();
 		}
 	}
 </script>
