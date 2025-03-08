@@ -38,7 +38,10 @@
 
 <Drawer class="p-3">
    <div class="p-3">
-      <h4 class="h4" data-toc-ignore>Your ID ({UserID})</h4>
+      <h4 class="h4" data-toc-ignore style="display: flex;flex-direction: row;justify-content: space-between;">
+         Your ID ({UserID})
+         <button class="btn">✖</button>
+      </h4>
    </div>
    <div class="p-3">
       <RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
