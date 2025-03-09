@@ -67,6 +67,7 @@
 			else if(data == "StopScreenzjhgdvzjvguyzgv"){
 				NavchildRef.closedrawer();
             videodata.srcObject=null
+            document.exitFullscreen()
 			}
 			else{
 				LogMessages.push({type:"Receiver",message:data,timestamp:new Date()})
