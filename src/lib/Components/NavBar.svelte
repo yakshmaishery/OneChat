@@ -67,4 +67,19 @@
          <button type="button" class="btn variant-filled" on:click={()=>{dispatch("fullscreenbtn")}}>Full Screen</button>
       {/if}
    </div>
+   <div class="p-3">
+      <hr class="!border-t-4" />
+   </div>
+   <div class="p-3">
+      <h1 class="h3">
+         <blockquote class="blockquote">
+            Note:- User can share screen when they are using Desktop, currently mobile devices can view another screen but cannot share it's on. since of device compatibility Issues. 
+         </blockquote>
+      </h1>
+   </div>
+   <div class="p-3">
+      <hr class="!border-t-4" />
+   </div>
+   <div class="p-3">
+   </div>
 </Drawer>
