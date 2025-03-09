@@ -54,7 +54,7 @@
    </div>
    <div class="p-3">
       <div class="input-group input-group-divider grid-cols-[1fr_auto]">
-         <input type="text" placeholder="Another User ID" class="p-2" bind:value={AnotherID} disabled={IsConnected} />
+         <input type="text" placeholder="Another User ID" class="p-2" on:input={()=>{AnotherID = AnotherID.toLowerCase()}} bind:value={AnotherID} disabled={IsConnected} />
          <button class="btn" on:click={()=>dispatch('ConnectwithUserFirst')}><FontAwesomeIcon icon={faSearch} class="" /></button>
       </div>
    </div>
