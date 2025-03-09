@@ -19,7 +19,7 @@
 	let videodata:HTMLVideoElement
 	const toastStore = getToastStore();
 	const shortdummyID = nanoid(4).toLowerCase() // Generate Random User ID
-   var peer = new Peer(shortdummyID!=""?shortdummyID:"GUESTUSER",{config: {iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]}}) // Create Peer
+   var peer = new Peer(shortdummyID,{config: {iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]}}) // Create Peer
 
    peer.on("open",(id) => { // Connect Peer if Success set the ID
       UserID = id
@@ -63,6 +63,10 @@
 			else if(data == "SharedScreenzjhgdvzjvguyzgv"){
 				Window = "ShareScreen"
 				NavchildRef.closedrawer();
+			}
+			else if(data == "StopScreenzjhgdvzjvguyzgv"){
+				NavchildRef.closedrawer();
+            videodata.srcObject=null
 			}
 			else{
 				LogMessages.push({type:"Receiver",message:data,timestamp:new Date()})
@@ -126,6 +130,7 @@
          mediarecorder.start()
          mediarecorder.addEventListener("stop",()=>{
             // LeaveConnection()
+            conn.send("StopScreenzjhgdvzjvguyzgv")
          })
          Swal.fire({icon:"success",title:"Screen is shared",confirmButtonColor: "green"})
       }
@@ -180,13 +185,13 @@
 			<ChatWindow bind:LogMessages={LogMessages}/>
 		</div>
 		<div style={`content-visibility:${Window!="ShareScreen"?"hidden":"auto"};height: 100%;`}>
-			<canvas id="videoCanvas"></canvas>
+			<!-- <canvas id="videoCanvas"></canvas> -->
+          <!-- svelte-ignore a11y-media-has-caption -->
+         <video bind:this={videodata} controls id="videotag"/>
 		</div>
 	</div>
 	<div class="box" style={`content-visibility:${Window!="Chat"?"hidden":"auto"}`}>
 		<ChatMessage bind:currentMessage={UserMessage} bind:IsConnected={IsConnected} on:SendMessage={SendMessage}/>
 	</div>
 </div>
-<!-- svelte-ignore a11y-media-has-caption -->
-<video bind:this={videodata} controls id="videotag" hidden/>
 <Toast />
