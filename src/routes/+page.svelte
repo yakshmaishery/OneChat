@@ -159,7 +159,11 @@
             // LeaveConnection()
             conn.send("StopScreenzjhgdvzjvguyzgv")
          })
-         Swal.fire({icon:"success",title:"Screen is shared",confirmButtonColor: "green"})
+         // Swal.fire({icon:"success",title:"Screen is shared",confirmButtonColor: "green"})
+         const t: ToastSettings = {
+				message: 'Screen is Shared!',
+			};
+			toastStore.trigger(t);
       }
    }
 	// Start Share Screen
@@ -184,7 +188,11 @@
             // LeaveConnection()
             conn.send("StopScreenzjhgdvzjvguyzgv")
          })
-         Swal.fire({icon:"success",title:"Screen is shared",confirmButtonColor: "green"})
+         // Swal.fire({icon:"success",title:"Camera is opened",confirmButtonColor: "green"})
+         const t: ToastSettings = {
+				message: 'Camera is Opened 📷',
+			};
+			toastStore.trigger(t);
       }
    }
 
