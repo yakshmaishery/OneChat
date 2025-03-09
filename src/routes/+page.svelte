@@ -17,6 +17,7 @@
 	let LogMessages:{type:string;message:string;timestamp:Date}[] = []
 	let NavchildRef: NavBar;
 	let videodata:HTMLVideoElement
+   let VulnerableMessages = ["jhzxkdvbuyizxv","CHATLEAVECODE","SharedScreenzjhgdvzjvguyzgv","StopScreenzjhgdvzjvguyzgv"]
 	const toastStore = getToastStore();
 	const shortdummyID = nanoid(4).toLowerCase() // Generate Random User ID
    var peer = new Peer(shortdummyID,{config: {iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]}}) // Create Peer
@@ -84,11 +85,25 @@
 	})
 
 	const SendMessage = () => {
-      conn.send(UserMessage)  
-      LogMessages.push({type:"Sender",message:UserMessage,timestamp:new Date()})
-      UserMessage = ""
-      LogMessages = LogMessages
-		scrolldownmessages()
+      if(!VulnerableMessages.includes(UserMessage) && UserMessage!=""){
+         conn.send(UserMessage)  
+         LogMessages.push({type:"Sender",message:UserMessage,timestamp:new Date()})
+         UserMessage = ""
+         LogMessages = LogMessages
+         scrolldownmessages()
+      }
+      else if(UserMessage==""){
+         const t: ToastSettings = {
+				message: 'Please enter message!',
+			};
+			toastStore.trigger(t);
+      }
+      else{
+         const t: ToastSettings = {
+				message: 'User Data contains vulnerable Information',
+			};
+			toastStore.trigger(t);
+      }
    }
 	const LeaveConnection = () => {
       conn.send("CHATLEAVECODE")
