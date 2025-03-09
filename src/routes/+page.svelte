@@ -84,6 +84,7 @@
 		})
 	})
 
+   // Send Messages
 	const SendMessage = () => {
       if(!VulnerableMessages.includes(UserMessage) && UserMessage!=""){
          conn.send(UserMessage)  
@@ -105,11 +106,15 @@
 			toastStore.trigger(t);
       }
    }
+
+   // Leave Connection
 	const LeaveConnection = () => {
       conn.send("CHATLEAVECODE")
       conn.close()
       location.reload()
    }
+
+   // Auto Scroll down
 	const scrolldownmessages = () => {
       setTimeout(() => {
          const div = document.getElementById("chatwindow");
@@ -184,6 +189,8 @@
 			}
       })
    })
+
+   // Full screen video
 	function fullscreenbtn() {
 		if(videodata){
 			videodata.requestFullscreen()
