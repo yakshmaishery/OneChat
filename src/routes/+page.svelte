@@ -18,6 +18,8 @@
 	let NavchildRef: NavBar;
 	let videodata:HTMLVideoElement
    let VulnerableMessages = ["jhzxkdvbuyizxv","CHATLEAVECODE","SharedScreenzjhgdvzjvguyzgv","StopScreenzjhgdvzjvguyzgv"]
+   let CameraOpen = false
+   let CameraStream:any = null
 	const toastStore = getToastStore();
 	const shortdummyID = nanoid(4).toLowerCase() // Generate Random User ID
    var peer = new Peer(shortdummyID,{config: {iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]}}) // Create Peer
@@ -156,6 +158,38 @@
          Swal.fire({icon:"success",title:"Screen is shared",confirmButtonColor: "green"})
       }
    }
+	// Start Share Screen
+   async function CameraScreen() {
+      const constraints = { video: { facingMode: "user" } }; // Use "environment" for back camera
+      CameraStream = await navigator.mediaDevices.getUserMedia(constraints).catch((e) => {
+             if(e.name == "NotAllowedError"){
+                    Swal.fire({icon:"warning",title:"Recording was cancelled",confirmButtonColor: "green"})
+             }
+             else{
+                    Swal.fire({icon:"error",title:"Something went wrong!",confirmButtonColor: "green"})
+             }
+      })
+      if(CameraStream){
+         CameraOpen = true
+         // @ts-ignore
+         peer.call(AnotherID,CameraStream)
+         conn.send("SharedScreenzjhgdvzjvguyzgv")
+         const mediarecorder = new MediaRecorder(CameraStream)
+         mediarecorder.start()
+         mediarecorder.addEventListener("stop",()=>{
+            // LeaveConnection()
+            conn.send("StopScreenzjhgdvzjvguyzgv")
+         })
+         Swal.fire({icon:"success",title:"Screen is shared",confirmButtonColor: "green"})
+      }
+   }
+
+   function StopCamera(){
+      CameraOpen = false
+      if (CameraStream) {
+         CameraStream.getTracks().forEach((track:any) => track.stop()); // Stop all tracks
+      }
+   }
 
 	// Fetch the Stream of video
    peer.on('call', function(call) {
@@ -201,7 +235,8 @@
 <div id="EntireScreen">
 	<div class="box">
 		<NavBar bind:this={NavchildRef} bind:Window={Window} bind:IsConnected={IsConnected} bind:UserID={UserID} bind:AnotherID={AnotherID}
-		on:ConnectwithUserFirst={ConnectwithUserFirst} on:LeaveConnection={LeaveConnection} on:ShareScreen={ShareScreen} on:fullscreenbtn={fullscreenbtn}/>
+		on:ConnectwithUserFirst={ConnectwithUserFirst} on:LeaveConnection={LeaveConnection} on:ShareScreen={ShareScreen} 
+      on:fullscreenbtn={fullscreenbtn} on:CameraScreen={CameraScreen} bind:CameraOpen={CameraOpen} on:StopCamera={StopCamera}/>
 	</div>
 	<div class="box" id="chatwindow">
 		<div style={`content-visibility:${Window!="Chat"?"hidden":"auto"}`}>

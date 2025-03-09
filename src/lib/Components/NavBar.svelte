@@ -3,6 +3,7 @@
    export let UserID = ""
    export let AnotherID = ""
    export let IsConnected = false
+   export let CameraOpen = false
    import { initializeStores,Drawer, getDrawerStore,AppBar,LightSwitch,RadioGroup,RadioItem } from '@skeletonlabs/skeleton';
    import type { DrawerSettings } from '@skeletonlabs/skeleton';
    import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
@@ -66,7 +67,9 @@
    </div>
    <div class="p-3">
       {#if Window == "ShareScreen"}
-         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("ShareScreen")}}>Share</button>
+         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("ShareScreen")}} disabled={CameraOpen}>Share Screen</button>
+         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("CameraScreen")}} disabled={CameraOpen}>Camera</button>
+         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("StopCamera")}} disabled={!CameraOpen}>Stop Camera</button>
          <button type="button" class="btn variant-filled" on:click={()=>{dispatch("fullscreenbtn")}}>Full Screen</button>
       {/if}
    </div>
