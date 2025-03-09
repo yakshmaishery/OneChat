@@ -34,8 +34,7 @@
          <FontAwesomeIcon icon={faBars} class="" />
       </button>
    </svelte:fragment>
-	<h3 class="h3 headerwithimg" data-toc-ignore>
-      <img src="/images/favicon.png" alt="Your Avatar" class="avatar" style="width: 10%;">
+	<h3 class="h3" data-toc-ignore>
       One Chat
    </h3>
 	<svelte:fragment slot="trail">
@@ -88,11 +87,3 @@
       <Contacts/>
    </div>
 </Drawer>
-<style>
-   .headerwithimg{
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      align-items: center;
-   }
-</style>
