@@ -2,6 +2,7 @@
    export let Window = ""
    export let UserID = ""
    export let AnotherID = ""
+   export let cameraSide = "user"
    export let IsConnected = false
    export let CameraOpen = false
    import { initializeStores,Drawer, getDrawerStore,AppBar,LightSwitch,RadioGroup,RadioItem } from '@skeletonlabs/skeleton';
@@ -26,6 +27,12 @@
    // drawerStore.open();
    export function closedrawer(){
       drawerStore.close()
+   }
+
+   function ClickCameraradio(){
+      setTimeout(() => {
+         dispatch("CameraScreen")
+      }, 200);
    }
 </script>
 
@@ -54,6 +61,7 @@
       <RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
          <RadioItem bind:group={Window} name="justify" value="ShareScreen" disabled={!IsConnected}>Share Screen</RadioItem>
          <RadioItem bind:group={Window} name="justify" value="Chat" disabled={!IsConnected}>Chat</RadioItem>
+         <RadioItem bind:group={Window} name="justify" value="Camera" disabled={!IsConnected}>Camera</RadioItem>
       </RadioGroup>
    </div>
    <div class="p-3">
@@ -67,10 +75,29 @@
    </div>
    <div class="p-3">
       {#if Window == "ShareScreen"}
-         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("ShareScreen")}} disabled={CameraOpen}>Share Screen</button>
-         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("CameraScreen")}} disabled={CameraOpen}>Camera</button>
-         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("StopCamera")}} disabled={!CameraOpen}>Stop Camera</button>
-         <button type="button" class="btn variant-filled" on:click={()=>{dispatch("fullscreenbtn")}}>Full Screen</button>
+         <div>
+            <button type="button" class="btn variant-filled" on:click={()=>{dispatch("ShareScreen")}} disabled={CameraOpen}>Share Screen</button>
+            <button type="button" class="btn variant-filled" on:click={()=>{dispatch("fullscreenbtn")}}>Full Screen</button>
+            <!-- <RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
+               <RadioItem bind:group={cameraSide} name="cameraSide" disabled={CameraOpen} value="user">Front Camera</RadioItem>
+               <RadioItem bind:group={cameraSide} name="cameraSide" disabled={CameraOpen} value="environment">Back Camera</RadioItem>
+            </RadioGroup>
+            <button type="button" class="btn variant-filled" on:click={ClickCameraradio} disabled={CameraOpen}>Start Camera</button>
+            <button type="button" class="btn variant-filled" on:click={()=>{dispatch("StopCamera")}} disabled={!CameraOpen}>Stop Camera</button> -->
+         </div>
+         <!-- <button type="button" class="btn variant-filled" on:click={()=>{dispatch("CameraScreen")}} disabled={CameraOpen}>Camera</button> -->
+      {/if}
+      {#if Window == "Camera"}
+         <div class="">
+            <RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
+               <RadioItem bind:group={cameraSide} name="cameraSide" disabled={CameraOpen} value="user">Front Camera</RadioItem>
+               <RadioItem bind:group={cameraSide} name="cameraSide" disabled={CameraOpen} value="environment">Back Camera</RadioItem>
+            </RadioGroup>
+         </div>
+         <div class="py-3">
+            <button type="button" class="btn variant-filled" on:click={ClickCameraradio} disabled={CameraOpen}>Start Camera</button>
+            <button type="button" class="btn variant-filled" on:click={()=>{dispatch("StopCamera")}} disabled={!CameraOpen}>Stop Camera</button>
+         </div>
       {/if}
    </div>
    <div class="p-3">

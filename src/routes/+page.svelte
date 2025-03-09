@@ -20,6 +20,7 @@
    let VulnerableMessages = ["jhzxkdvbuyizxv","CHATLEAVECODE","SharedScreenzjhgdvzjvguyzgv","StopScreenzjhgdvzjvguyzgv"]
    let CameraOpen = false
    let CameraStream:any = null
+   let cameraSide:string = "user"
 	const toastStore = getToastStore();
 	const shortdummyID = nanoid(4).toLowerCase() // Generate Random User ID
    var peer = new Peer(shortdummyID,{config: {iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]}}) // Create Peer
@@ -70,7 +71,10 @@
 			else if(data == "StopScreenzjhgdvzjvguyzgv"){
 				NavchildRef.closedrawer();
             videodata.srcObject=null
-            document.exitFullscreen()
+            try{
+               document.exitFullscreen()
+            }
+            catch{}
 			}
 			else{
 				LogMessages.push({type:"Receiver",message:data,timestamp:new Date()})
@@ -160,7 +164,7 @@
    }
 	// Start Share Screen
    async function CameraScreen() {
-      const constraints = { video: { facingMode: "user" } }; // Use "environment" for back camera
+      const constraints = { video: { facingMode: cameraSide } }; // Use "environment" for back camera
       CameraStream = await navigator.mediaDevices.getUserMedia(constraints).catch((e) => {
              if(e.name == "NotAllowedError"){
                     Swal.fire({icon:"warning",title:"Recording was cancelled",confirmButtonColor: "green"})
@@ -236,13 +240,13 @@
 	<div class="box">
 		<NavBar bind:this={NavchildRef} bind:Window={Window} bind:IsConnected={IsConnected} bind:UserID={UserID} bind:AnotherID={AnotherID}
 		on:ConnectwithUserFirst={ConnectwithUserFirst} on:LeaveConnection={LeaveConnection} on:ShareScreen={ShareScreen} 
-      on:fullscreenbtn={fullscreenbtn} on:CameraScreen={CameraScreen} bind:CameraOpen={CameraOpen} on:StopCamera={StopCamera}/>
+      on:fullscreenbtn={fullscreenbtn} on:CameraScreen={CameraScreen} bind:CameraOpen={CameraOpen} on:StopCamera={StopCamera} bind:cameraSide={cameraSide}/>
 	</div>
 	<div class="box" id="chatwindow">
 		<div style={`content-visibility:${Window!="Chat"?"hidden":"auto"}`}>
 			<ChatWindow bind:LogMessages={LogMessages}/>
 		</div>
-		<div style={`content-visibility:${Window!="ShareScreen"?"hidden":"auto"};height: 100%;`}>
+		<div style={`content-visibility:${(Window!="ShareScreen" && Window!="Camera")?"hidden":"auto"};height: 100%;display: flex;justify-content: center;`}>
 			<!-- <canvas id="videoCanvas"></canvas> -->
           <!-- svelte-ignore a11y-media-has-caption -->
          <video bind:this={videodata} controls id="videotag"/>
