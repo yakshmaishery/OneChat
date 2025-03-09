@@ -8,6 +8,7 @@
    import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
    import { faBars,faSearch } from '@fortawesome/free-solid-svg-icons';
    import { createEventDispatcher } from 'svelte';
+   import Contacts from './Contacts.svelte';
    const dispatch = createEventDispatcher();
    initializeStores();
    const drawerStore = getDrawerStore();
@@ -81,5 +82,6 @@
       <hr class="!border-t-4" />
    </div>
    <div class="p-3">
+      <Contacts/>
    </div>
 </Drawer>
