@@ -38,3 +38,15 @@ input:focus, textarea:focus, select:focus {
     outline: none !important;
     box-shadow: none !important;
 }
+.card {
+    background-color: rgb(169 169 169);
+}
+.variant-soft, .variant-soft-surface {
+    background-color: rgb(var(--color-surface-400) / 0.9);
+}
+.dark .card {
+    background-color: rgb(67 67 67);
+}
+:is(.dark .variant-soft), :is(.dark .variant-soft-surface) {
+    background-color: rgb(var(--color-surface-500) / 0.9);
+}
